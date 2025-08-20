@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e758abcb396f48f4382efde28a7fde7b, type: 3}
+  m_Name: Category Database
+  m_EditorClassIdentifier: 
+  categories:
+  - type: 0
+    name: sad
+    icon: {fileID: 21300000, guid: 30710add3d3b3cc4ba1de5d18525c216, type: 3}
+    uniqueIds: []
+  - type: 1
+    name: Food
+    icon: {fileID: 21300000, guid: 30710add3d3b3cc4ba1de5d18525c216, type: 3}
+    uniqueIds: []
