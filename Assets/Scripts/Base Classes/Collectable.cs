@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace Base_Classes
 {
-   [RequireComponent(typeof(Collider2D), typeof(SpriteRenderer))]
+   [RequireComponent(typeof(Collider), typeof(MeshFilter),typeof(MeshRenderer))]
    public abstract class Collectable : MonoBehaviour,IPointerEnterHandler, IPointerExitHandler
    {
       [SerializeField]
@@ -14,7 +14,7 @@ namespace Base_Classes
       [SerializeField]
       protected bool isTriggerable;
       protected bool IsCollected;
-      private Collider2D _collider;
+      private Collider _collider;
       [SerializeField]
       private int collectedAmount;
       public virtual void OnCollect(GameObject collector)
@@ -29,7 +29,7 @@ namespace Base_Classes
       protected virtual void Awake()
       {
          gameObject.tag = "Collectable";
-         _collider = GetComponent<Collider2D>();
+         _collider = GetComponent<Collider>();
          _collider.isTrigger = isTriggerable;
       }
 
@@ -41,6 +41,7 @@ namespace Base_Classes
       protected virtual void OnDisable()
       {
          IsCollected = true;
+         InteractionManager.Instance.HideTooltip();
       }
 
       public SourceType GetItemType()
@@ -51,7 +52,7 @@ namespace Base_Classes
       public void OnPointerEnter(PointerEventData eventData)
       {
          InteractionManager.Instance.ShowTooltip(itemType.ToString(),
-            transform.position + Vector3.up * _collider.bounds.size.y);
+            transform.position + Vector3.up * _collider.bounds.size.y*2);
       }
 
       public void OnPointerExit(PointerEventData eventData)

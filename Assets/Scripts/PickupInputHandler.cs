@@ -8,7 +8,7 @@ public class PickupInputHandler : MonoBehaviour
     private PlayerInventory inventory;
     public float pickupRange = 1.5f;
     private const string CollectableTag = "Collectable";
-    private readonly Collider2D[] _results = new Collider2D[5]; 
+    private readonly Collider[] _results = new Collider[5]; 
 
     private bool _isPickupHeld;
     private HarvestableSource currentHarvestableSource;
@@ -36,7 +36,7 @@ public class PickupInputHandler : MonoBehaviour
     }
     private void CheckPickup()
     {
-        int size = Physics2D.OverlapCircleNonAlloc(transform.position, pickupRange, _results);
+        int size = Physics.OverlapSphereNonAlloc(transform.position, pickupRange, _results);
 
         for (int i = 0; i < size; i++)
         {
@@ -64,7 +64,7 @@ public class PickupInputHandler : MonoBehaviour
 
         if (Application.isPlaying && enabled)
         {
-            int size = Physics2D.OverlapCircleNonAlloc(transform.position, pickupRange, _results);
+            int size = Physics.OverlapSphereNonAlloc(transform.position, pickupRange, _results);
             for (int i = 0; i < size; i++)
             {
                 if (!_results[i].CompareTag(CollectableTag)) continue;

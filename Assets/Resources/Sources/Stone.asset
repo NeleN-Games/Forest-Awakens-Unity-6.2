@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74a052d3bbb48be49a9e1b188238da09, type: 3}
   m_Name: Stone
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 408758621328633079, guid: 1bf38151392df0b4fbb2339e9083342a, type: 3}
-  icon: {fileID: -164191432, guid: 13269667ee3eb0347807c8e05ada0646, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::Models.Data.SourceData
+  prefab: {fileID: 6543489301757314470, guid: 1bf38151392df0b4fbb2339e9083342a, type: 3}
+  icon: {fileID: 21300000, guid: b8b073f6f54029140af8d25d5558b339, type: 3}
   enumType: 0

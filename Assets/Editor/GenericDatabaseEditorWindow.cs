@@ -22,15 +22,61 @@ namespace Editor
         where TDatabase : GenericDatabase<TEnum,TData>
         where TEnum : struct, Enum
     {
-        private string DisplaySpriteKey => $"DisplaySprite_{typeof(TEnum).Name}";
-        private string DisplaySpriteIndexKey => $"DisplaySpriteIndex_{typeof(TEnum).Name}";
+    
         private string ScriptGeneratedKey => $"ScriptGenerated_{typeof(TEnum).Name}";
         private bool ScriptGenerated
         {
             get => EditorPrefs.GetBool(ScriptGeneratedKey, false);
             set => EditorPrefs.SetBool(ScriptGeneratedKey, value);
         }
+        private string DisplayMeshKey => $"DisplayMesh_{typeof(TEnum).Name}";
+        private Mesh SelectedMesh
+        {
+            get
+            {
+                string guid = EditorPrefs.GetString(DisplayMeshKey, "");
+                if (string.IsNullOrEmpty(guid)) return null;
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                return AssetDatabase.LoadAssetAtPath<Mesh>(path);
+            }
+            set
+            {
+                if (value == null)
+                {
+                    EditorPrefs.DeleteKey(DisplayMeshKey);
+                    return;
+                }
 
+                string path = AssetDatabase.GetAssetPath(value);
+                string guid = AssetDatabase.AssetPathToGUID(path);
+                EditorPrefs.SetString(DisplayMeshKey, guid);
+            }
+        }
+        private string DisplayMaterialKey => $"SelectedMaterial_{typeof(TEnum).Name}";
+        private Material SelectedMaterial
+        {
+            get
+            {
+                string guid = EditorPrefs.GetString(DisplayMaterialKey, "");
+                if (string.IsNullOrEmpty(guid)) return null;
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                return AssetDatabase.LoadAssetAtPath<Material>(path);
+            }
+            set
+            {
+                if (value == null)
+                {
+                    EditorPrefs.DeleteKey(DisplayMaterialKey);
+                    return;
+                }
+
+                string path = AssetDatabase.GetAssetPath(value);
+                string guid = AssetDatabase.AssetPathToGUID(path);
+                EditorPrefs.SetString(DisplayMaterialKey, guid);
+            }
+        }
+        private string DisplaySpriteKey => $"DisplaySprite_{typeof(TEnum).Name}";
+        private string DisplaySpriteIndexKey => $"DisplaySpriteIndex_{typeof(TEnum).Name}";
         private Sprite DisplaySprite
         {
             get
@@ -203,7 +249,23 @@ namespace Editor
                 EnumReady = false;
                 ScriptGenerated = false;
             }
-
+            EditorGUILayout.Space(5);
+            EditorGUI.BeginChangeCheck();
+            SelectedMesh = (Mesh)EditorGUILayout.ObjectField("Mesh", SelectedMesh, typeof(Mesh), false);
+            if (EditorGUI.EndChangeCheck())
+            {
+                EnumReady = false;
+                ScriptGenerated = false;
+            }
+            EditorGUILayout.Space(5);
+            EditorGUI.BeginChangeCheck();
+            SelectedMaterial = (Material)EditorGUILayout.ObjectField("Material", SelectedMaterial, typeof(Material), false);
+            if (EditorGUI.EndChangeCheck())
+            {
+                EnumReady = false;
+                ScriptGenerated = false;
+            }
+            EditorGUILayout.Space(5);
             EditorGUI.BeginChangeCheck();
             DisplaySprite = (Sprite)EditorGUILayout.ObjectField("Display Sprite", DisplaySprite, typeof(Sprite), false);
             if (EditorGUI.EndChangeCheck())
@@ -330,11 +392,23 @@ namespace Editor
            
             Debug.Log(AssetName);
             GameObject itemObject = new GameObject(AssetName);
-            itemObject.AddComponent<SpriteRenderer>().sprite = DisplaySprite;
+            if (SelectedMesh != null)
+            {
+                MeshFilter meshFilter = itemObject.AddComponent<MeshFilter>();
+                meshFilter.sharedMesh = SelectedMesh;
+
+                MeshRenderer meshRenderer = itemObject.AddComponent<MeshRenderer>();
+                meshRenderer.sharedMaterial = SelectedMaterial != null ? SelectedMaterial : new Material(Shader.Find("Universal Render Pipeline/Lit"));
+            }
+            
+            itemObject.AddComponent<BoxCollider>();
+            
+            // no anymore using 2d assets, use displaySprite to set in script for ui usage.
+            //itemObject.AddComponent<SpriteRenderer>().sprite = DisplaySprite;
             string prefabPath = $"{PrefabsFolderPath}/{AssetName}.prefab";
             GameObject prefab = PrefabUtility.SaveAsPrefabAsset(itemObject, prefabPath); 
             
-        
+            
             TData newItem = CreateInstance<TData>();
             
             newItem.name = AssetName;
@@ -406,7 +480,6 @@ namespace Editor
             newItem.Initialize(prefab,DisplaySprite,itemType);
             
             newItem.prefab = prefab;
-            prefab.AddComponent<BoxCollider2D>();
             
             var collectableType = Type.GetType($"Models.Sources.{AssetName}Source, Assembly-CSharp");
             

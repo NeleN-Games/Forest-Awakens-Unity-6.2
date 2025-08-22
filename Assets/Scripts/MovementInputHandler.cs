@@ -16,7 +16,7 @@ public class MovementInputHandler : MonoBehaviour
     [SerializeField]
     private float baseSpeed;
     [SerializeField] 
-    private Rigidbody2D rigidBody2D;
+    private Rigidbody rigidBody;
     
     [SerializeField]
     private float accelerationTime = 3f;
@@ -76,6 +76,31 @@ public class MovementInputHandler : MonoBehaviour
     private void Move()
     {
         if (_moveInput != Vector2.zero)
+        {
+            if (_lastMoveInput != _moveInput)
+            {
+                _cashedMoveDirection = _moveInput.normalized;
+                _lastNonZeroDirection = _cashedMoveDirection;
+            }
+            _lastMoveInput = _moveInput;
+        }
+        else
+        {
+            _cashedMoveDirection = _currentSpeedMultiplier > 0.05f ?
+                _lastNonZeroDirection :
+                Vector2.Lerp(_cashedMoveDirection, Vector2.zero, Time.fixedDeltaTime * 20f);
+        }
+
+        Vector3 rawMove = new Vector3(_cashedMoveDirection.x, 0f, _cashedMoveDirection.y);
+        Quaternion rotation = Quaternion.Euler(0f, 45f, 0f); 
+        Vector3 moveDirection = rotation * rawMove;
+
+        rigidBody.linearVelocity = moveDirection * (baseSpeed * _currentSpeedMultiplier);
+    
+
+        // Old System for moving along x, y axis
+        
+        /*if (_moveInput != Vector2.zero)
         {            
             if (_lastMoveInput != _moveInput)
             {
@@ -90,6 +115,6 @@ public class MovementInputHandler : MonoBehaviour
                 _lastNonZeroDirection :
                 Vector2.Lerp(_cashedMoveDirection, Vector2.zero, Time.fixedDeltaTime * 20f);
         }
-        rigidBody2D.linearVelocity = _cashedMoveDirection * (baseSpeed*_currentSpeedMultiplier);
+        rigidBody.linearVelocity = _cashedMoveDirection * (baseSpeed*_currentSpeedMultiplier);*/
     }
 }
