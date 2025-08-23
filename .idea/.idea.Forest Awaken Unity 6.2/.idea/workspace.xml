@@ -6,21 +6,25 @@
   <component name="ChangeListManager">
     <list default="true" id="9ba98c54-3a42-4e2e-81a7-ed27d246941f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Forest Awaken Unity 6.2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Forest Awaken Unity 6.2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Arts/Sources/Models/Log_Texture.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Arts/Sources/Models/Log_Texture.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Arts/Sources/Stone.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Arts/Sources/Stone.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Arts/Sources/log.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Arts/Sources/log.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/Shovel.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/Shovel.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Databases/Category Database.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Databases/Category Database.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Arts/Items/Icons/PickAxe.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Arts/Items/Icons/PickAxe.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/GenericDatabaseEditorWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/GenericDatabaseEditorWindow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Buildings/Fgh.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Buildings/Fgh.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/Pickaxe.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Items/Pickaxe.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/CraftableSlot.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/CraftableSlot.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Buildings/Fgh.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Buildings/Fgh.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Databases/Building Database.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Databases/Building Database.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Databases/Item Database.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Databases/Item Database.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Databases/Unique Id Database.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Databases/Unique Id Database.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Items/Shovel.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Items/Shovel.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enums/CategoryType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enums/CategoryType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Fonts/Rubik-VariableFont_wght SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Fonts/Rubik-VariableFont_wght SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Items/Pickaxe.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Items/Pickaxe.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enums/BuildingType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enums/BuildingType.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enums/ItemType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enums/ItemType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hud/Slots/CraftableSlotUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hud/Slots/CraftableSlotUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/CraftLookupManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/CraftLookupManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Models/Data/CraftableAssetData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Models/Data/CraftableAssetData.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,9 +36,12 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/98fbc9de20ae47d9bb2559ab79ec66431f5a00/89/33fccaa8/GameObject.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d44b17e136d09081da1e8fd0e8c83fde60e11818b9f2442d7ed8cb733fae895e/System.Collections.Generic.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Models/Data/CraftableAssetData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@978211393e28/InputSystem/Plugins/PlayerInput/PlayerInput.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 8
@@ -54,6 +61,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.General&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -109,13 +117,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1755927932637</updated>
-      <workItem from="1755927935319" duration="11578000" />
+      <workItem from="1755927935319" duration="12585000" />
+      <workItem from="1755957774575" duration="7459000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityProjectDiscoverer">
     <option name="hasUnityReference" value="true" />

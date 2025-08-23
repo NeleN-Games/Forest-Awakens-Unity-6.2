@@ -26,7 +26,7 @@ namespace Managers
         /// Invoked when the availability of craftable objects changes, such as:
         /// - A new item is discovered in the tech tree.
         /// </summary>
-        public Action<Dictionary<CategoryType, List<ICraftable>>> OnUnlockedCraftableObject;
+        //public Action<Dictionary<CategoryType, List<ICraftable>>> OnUnlockedCraftableObject;
         
         private readonly Dictionary<SourceType, List<ICraftable>> _craftablesByRequiredSource= new();
 
@@ -53,24 +53,23 @@ namespace Managers
             if (_inventory == null)
                 Debug.LogError("Inventory Service is not registered!");
             OnSourceAmountChanged += UpdateAvailabilityBySource;
-            OnUnlockedCraftableObject += AddUnlockedCraftableObjects;
+            //OnUnlockedCraftableObject += AddUnlockedCraftableObjects;
             InitializeDatabases();
         }
 
         public void OnDestroy()
         {
             OnSourceAmountChanged -= UpdateAvailabilityBySource;
-            OnUnlockedCraftableObject -= AddUnlockedCraftableObjects;
+           // OnUnlockedCraftableObject -= AddUnlockedCraftableObjects;
         }
 
         private void InitializeDatabases()
         {
             var itemDatabase=ServiceLocator.Get<ItemDatabase>();
             var buildingDatabase=ServiceLocator.Get<BuildingDatabase>();
-            
             AddUnlockedEntries<ItemType, ItemData>(itemDatabase.Entries);
             AddUnlockedEntries<BuildingType, BuildingData>(buildingDatabase.Entries);
-
+            InitializeCategorySlots();
         }
         private void AddUnlockedEntries<TEnum, TData>(List<TData> entries)
             where TEnum : Enum
@@ -79,10 +78,15 @@ namespace Managers
 
             foreach (var entry in entries)
             {
-                if (entry.CraftableAvailabilityState == CraftableAvailabilityState.Locked)
+                if (entry.CraftableAvailabilityState == CraftableAvailabilityState.Locked) 
                     continue;
                
                 var clonedEntry = (TData)entry.Clone();
+                if (clonedEntry == null)
+                {
+                    Debug.LogError($"Clone failed for entry: {entry.enumType}");
+                    continue;
+                }
                 if (!_unlockedCraftableByCategory.ContainsKey(clonedEntry.CategoryType))
                 {
                     _unlockedCraftableByCategory[clonedEntry.CategoryType] = new List<ICraftable>();
@@ -137,7 +141,7 @@ namespace Managers
 
         private void CreateNewCategory(CategoryType categoryType)
         {
-            if (!_categorySlots.TryGetValue(categoryType, out var slotUI))
+            if (_categorySlots.TryGetValue(categoryType, out var slotUI))
             {
                 Debug.LogError("This category has already a CategorySlotUI");
                 return;
@@ -208,6 +212,7 @@ namespace Managers
                 {
                     _craftableSlots[i].gameObject.SetActive(true);
                     _craftableSlots[i].Setup(craftableList[i]);
+                    CraftableSlotByICraftable[craftableList[i]] = _craftableSlots[i];
                 }
                 else
                 {
@@ -249,6 +254,21 @@ namespace Managers
                 Debug.LogError($"{nameof(craftable)} is not added to {nameof(CraftableSlotByICraftable)}");
             }
         }
+
+        private void InitializeCategorySlots()
+        {
+            for (int i = categoriesSlotParent.childCount-1; i >= 0; i--)
+            {
+                Destroy(categoriesSlotParent.GetChild(i).gameObject);
+            }
+            foreach (var kvp in _unlockedCraftableByCategory)
+            {
+                CategoryType category = kvp.Key;
+                Debug.Log(category);
+                CreateNewCategory(category);
+            }
+        }
+        
         /*private void AddUnlockedEntries<TEnum, TData>(List<TData> entries)
             where TEnum : Enum
             where TData : CraftableAssetData<TEnum>,ICraftable

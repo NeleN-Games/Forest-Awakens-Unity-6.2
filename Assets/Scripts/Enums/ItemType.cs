@@ -5,6 +5,7 @@ namespace Enums
     [Serializable]
     public enum ItemType
     {
+        B,
         Pickaxe,
     }
 }
