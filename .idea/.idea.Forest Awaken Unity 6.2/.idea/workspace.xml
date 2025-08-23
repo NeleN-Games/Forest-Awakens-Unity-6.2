@@ -5,25 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ba98c54-3a42-4e2e-81a7-ed27d246941f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Sources/Branch.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Sources/Branch.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Sources/Branch.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Arts/Sources/Stone.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Arts/Sources/Stone.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Arts/Sources/log.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Arts/Sources/log.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/GenericDatabaseEditorWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/GenericDatabaseEditorWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Sources/Stone.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Sources/Stone.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Item Slot.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Item Slot.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Databases/Source Database.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Databases/Source Database.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Fonts/Rubik-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Fonts/Rubik-Bold SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sources/Stone.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Sources/Stone.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sources/Stone.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Sources/Stone.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base Classes/Collectable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base Classes/Collectable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enums/SourceType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enums/SourceType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hud/InventoryUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hud/InventoryUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hud/Slots/InventorySlotUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hud/Slots/InventorySlotUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tilemaps/GameObjects.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tilemaps/GameObjects.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Forest Awaken Unity 6.2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Forest Awaken Unity 6.2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Arts/Sources/Models/Log_Texture.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Arts/Sources/Models/Log_Texture.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Arts/Sources/Stone.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Arts/Sources/Stone.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Arts/Sources/log.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Arts/Sources/log.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/Shovel.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/Shovel.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Databases/Category Database.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Databases/Category Database.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Databases/Item Database.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Databases/Item Database.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Databases/Unique Id Database.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Databases/Unique Id Database.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Items/Shovel.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Items/Shovel.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enums/CategoryType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enums/CategoryType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enums/ItemType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enums/ItemType.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +109,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1755927932637</updated>
-      <workItem from="1755927935319" duration="5518000" />
+      <workItem from="1755927935319" duration="11578000" />
     </task>
     <servers />
   </component>
