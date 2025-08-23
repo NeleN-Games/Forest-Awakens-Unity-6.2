@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Base_Classes;
 using Databases;
 using Editor.Utilities;
 using Enums;
@@ -150,6 +151,12 @@ namespace Editor
         {
             get => EditorPrefs.GetString(AssetNameKey, "");
             set => EditorPrefs.SetString(AssetNameKey, value);
+        } 
+        private string SourceAmountKey => $"SourceAmount{typeof(TEnum).Name}";
+        private int SourceAmount
+        {
+            get => EditorPrefs.GetInt(SourceAmountKey, 0);
+            set => EditorPrefs.SetInt(SourceAmountKey, value);
         }
         
         private List<SourceRequirement> _resourceRequirements = new();
@@ -272,7 +279,19 @@ namespace Editor
             {
                 EnumReady = false;
                 ScriptGenerated = false;
-            }     EditorGUILayout.Space();
+            }
+            EditorGUILayout.Space(5);
+            if (!RequiresResourceRequirements)
+            {
+                EditorGUI.BeginChangeCheck();
+                SourceAmount = EditorGUILayout.IntField("Source Amount", SourceAmount);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    EnumReady = false;
+                    ScriptGenerated = false;
+                }
+            }
+           
         }
         protected abstract string GetNameFieldLabel();
 
@@ -485,7 +504,11 @@ namespace Editor
             
             if (collectableType != null)
             {
-                prefab.AddComponent(collectableType);
+                var component = prefab.AddComponent(collectableType);
+                if (component is Collectable collectable)
+                {
+                    collectable.InitializeCollectable((SourceType)(object)itemType, SourceAmount);
+                }
                 if (newItem is SourceData sourceData)
                 {
                     sourceData.SetRelatedScript(collectableType); 

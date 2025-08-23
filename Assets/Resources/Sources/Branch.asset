@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74a052d3bbb48be49a9e1b188238da09, type: 3}
-  m_Name: Stone
+  m_Name: Branch
   m_EditorClassIdentifier: Assembly-CSharp::Models.Data.SourceData
-  prefab: {fileID: 95966547413790855, guid: 1bf38151392df0b4fbb2339e9083342a, type: 3}
-  icon: {fileID: 21300000, guid: b8b073f6f54029140af8d25d5558b339, type: 3}
-  enumType: 1
+  prefab: {fileID: 2666018816487648228, guid: 7b12529c9bf472d44bd570a8b2e5f527, type: 3}
+  icon: {fileID: 21300000, guid: 51a3049694d32d3478340f2324b92893, type: 3}
+  enumType: 0

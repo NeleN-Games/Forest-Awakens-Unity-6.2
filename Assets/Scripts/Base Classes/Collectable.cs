@@ -43,6 +43,11 @@ namespace Base_Classes
          IsCollected = true;
          InteractionManager.Instance.HideTooltip();
       }
+      public void InitializeCollectable(SourceType type, int amount = 1)
+      {
+         itemType = type;
+         collectedAmount = amount;
+      }
 
       public SourceType GetItemType()
       {
