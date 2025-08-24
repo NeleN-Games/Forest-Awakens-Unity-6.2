@@ -217,11 +217,11 @@ namespace Managers
         } 
         private void UpdateCraftableAvailability(ICraftable craftable)
         {
-            bool isAvailabilityChanged = craftable.IsAvailabilityChanged(_inventory);
-            if (isAvailabilityChanged)
-            {
-                ChangeCraftableSlotUIAvailability(craftable,craftable.CraftableAvailabilityState==CraftableAvailabilityState.Available);
-            }
+          //  bool isAvailabilityChanged = craftable.IsAvailabilityChanged(_inventory);
+          //  if (isAvailabilityChanged)
+          
+            ChangeCraftableSlotUIAvailability(craftable,craftable.CraftableAvailabilityState==CraftableAvailabilityState.Available);
+            
         }
 
         private void ChangeCraftableSlotUIAvailability(ICraftable craftable, bool isAvailable)

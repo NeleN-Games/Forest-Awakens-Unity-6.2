@@ -24,7 +24,7 @@ namespace Base_Classes
         public IReadOnlyList<ActiveRateEffect> ActiveRateEffects => _activeRateEffects; 
         private void Awake()
         {
-            _currentValue = 50;
+            _currentValue = 150;
             _maxValue = 150;
         }
 
