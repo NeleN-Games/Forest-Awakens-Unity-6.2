@@ -2,20 +2,39 @@
 using Enums;
 using Interfaces;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Unity.Collections;
 
 namespace Models.Data
 {
     public abstract class CraftableAssetData<TEnum> : CommonAssetData<TEnum>,ICraftable
         where TEnum : System.Enum
     {
-        public UniqueId UniqueId { get; set; }
-        
-        public virtual UniqueId GetUniqueId()=>UniqueId;
-        public CategoryType CategoryType { get; set; }
-        public CraftableAvailabilityState CraftableAvailabilityState { get; set; }
-        public abstract void Craft();
+        [SerializeField,ReadOnly]
+        private UniqueId uniqueId;
 
+        [SerializeField]
+        private CategoryType categoryType;
+
+        [SerializeField]
+        private CraftableAvailabilityState craftableAvailabilityState;
+        public UniqueId UniqueId { get;  set; }
+
+
+        public CategoryType CategoryType
+        {
+            get => categoryType;
+            set => categoryType = value;
+        }
+
+        public CraftableAvailabilityState CraftableAvailabilityState
+        {
+            get => craftableAvailabilityState;
+            set => craftableAvailabilityState = value;
+        }
+        public virtual UniqueId GetUniqueId()=>UniqueId;
+    
+        public abstract void Craft();
+        [SerializeField]
         private List<SourceRequirement> _resourceRequirements;
         public List<SourceRequirement> GetRequirements() => _resourceRequirements;
         public void SetRequirements(List<SourceRequirement> sourceRequirements)
@@ -47,7 +66,7 @@ namespace Models.Data
             List<SourceRequirement> resourceRequirements,CategoryType categoryType, UniqueId uniqueId, CraftableAvailabilityState craftableAvailabilityState)
         {
             base.Initialize(prefab, icon, enumType);
-            this._resourceRequirements =resourceRequirements;
+            this._resourceRequirements = resourceRequirements ?? _resourceRequirements;
             this.CategoryType =categoryType;
             this.UniqueId =uniqueId;
             this.CraftableAvailabilityState =craftableAvailabilityState;
