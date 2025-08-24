@@ -60,7 +60,18 @@ namespace Models.Data
 
         public override CommonAssetData<TEnum> Clone()
         {
-            var clone = Instantiate(this);
+            var clone = ScriptableObject.Instantiate(this) as CraftableAssetData<TEnum>;
+            if (clone == null)
+            {
+                Debug.LogError("Failed to clone CraftableAssetData");
+                return null;
+            }
+            clone.SetRequirements(new List<SourceRequirement>(this.GetRequirements()));
+            clone.UniqueId = this.UniqueId;
+            clone.CategoryType = this.CategoryType;
+            clone.CraftableAvailabilityState = this.CraftableAvailabilityState;
+            return clone;
+            /*var clone = Instantiate(this);
             clone.SetRequirements(this.GetRequirements());
             if (clone is CraftableAssetData<BuildingType> craftableClone)
             {
@@ -70,7 +81,7 @@ namespace Models.Data
             {
                 Debug.Log("Clone created but it's not CraftableAssetData");
             }
-            return clone;
+            return clone;*/
         }
 
         private void PrintDetails()

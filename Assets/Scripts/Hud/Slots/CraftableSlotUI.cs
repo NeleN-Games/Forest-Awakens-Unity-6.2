@@ -1,6 +1,7 @@
 using System;
 using Enums;
 using Interfaces;
+using Models.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,7 +20,35 @@ namespace Hud.Slots
         {
             _craftable = craftable;
             title.text = _craftable.UniqueId.UniqueName;
+            Sprite sprite = null;
+            if (_craftable is CraftableAssetData<ItemType> item)
+            {
+                sprite = item.icon;
+            }
+            else if (_craftable is CraftableAssetData<ItemType> building)
+            {
+                sprite = building.icon;
+            }
+            else
+            {
+                Debug.LogError("Unknown ICraftable type");
+            }
+            if (sprite != null)
+            {
+                SetIcon(sprite);
+            }
             onClicked += _craftable.Craft;
+        }
+        private void SetIcon(Sprite sprite)
+        {
+            icon.sprite = sprite;
+            float aspect = sprite.rect.width / sprite.rect.height;
+            RectTransform rt = icon.GetComponent<RectTransform>();
+            float targetHeight = icon.rectTransform.rect.height;
+            float targetWidth = targetHeight * aspect;
+
+            rt.sizeDelta = new Vector2(targetWidth, targetHeight);
+            icon.sprite = sprite;
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -41,11 +70,13 @@ namespace Hud.Slots
 
         private void ChangeToAvailable()
         {
-            
+            icon.color = Color.white;
+            title.color = Color.white;
         }
         private void ChangeToUnavailable()
         {
-            
+            icon.color = Color.gray;
+            title.color = Color.gray; 
         }
     }
 }

@@ -51,18 +51,38 @@ namespace Hud
 
         public void RefreshInventory(Dictionary<SourceType, int> inventoryData)
         {
-            foreach (Transform child in slotParent)
-                Destroy(child.gameObject);
-        
-            _slots.Clear();
-
+            
             foreach (var item in inventoryData)
             {
-                GameObject slotObj = Instantiate(slotPrefab, slotParent);
-                var slot = slotObj.GetComponent<InventorySlotUI>();
-                slot.Setup(item.Key, item.Value);
-                _slots[item.Key] = slot;
+                if (_slots.TryGetValue(item.Key, out var slot))
+                {
+                    // if slot already exists, just update the count
+                    slot.UpdateCount(item.Value);
+                }
+                else
+                {
+                    // if slot doesn't exist, create a new one
+                    GameObject slotObj = Instantiate(slotPrefab, slotParent);
+                    slot = slotObj.GetComponent<InventorySlotUI>();
+                    slot.Setup(item.Key, item.Value);
+                    _slots[item.Key] = slot;
+                }
             }
+
+            // if any slots exist that are not in the inventory data, remove them
+            var keysToRemove = new List<SourceType>();
+            foreach (var existing in _slots)
+            {
+                if (!inventoryData.ContainsKey(existing.Key))
+                {
+                    Destroy(existing.Value.gameObject);
+                    keysToRemove.Add(existing.Key);
+                }
+            }
+
+            foreach (var key in keysToRemove)
+                _slots.Remove(key);
+            
         }
 
         public void ShowTooltip(string text, Vector2 position)
