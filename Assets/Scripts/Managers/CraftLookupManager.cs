@@ -131,7 +131,7 @@ namespace Managers
                     }
                     //CreateNewCraftable(craftable);
                     _unlockedCraftableByCategory[categoryType].Add(craftable);
-                    UpdateCraftableAvailability(craftable);
+                    //UpdateCraftableAvailability(craftable);
                 }
             }
         }
@@ -186,7 +186,8 @@ namespace Managers
                     _craftableSlots[i].gameObject.SetActive(true);
                     _craftableSlots[i].Setup(craftableList[i]);
                     CraftableSlotByICraftable[craftableList[i]] = _craftableSlots[i];
-                    UpdateCraftableAvailability(craftableList[i]);
+                    bool isAvailable = craftableList[i].IsAvailable(_inventory);
+                    ChangeCraftableSlotUIAvailability(craftableList[i], isAvailable);
                 }
                 else
                 {
@@ -217,10 +218,9 @@ namespace Managers
         } 
         private void UpdateCraftableAvailability(ICraftable craftable)
         {
-          //  bool isAvailabilityChanged = craftable.IsAvailabilityChanged(_inventory);
-          //  if (isAvailabilityChanged)
-          
-            ChangeCraftableSlotUIAvailability(craftable,craftable.CraftableAvailabilityState==CraftableAvailabilityState.Available);
+            bool isAvailabilityChanged = craftable.IsAvailabilityChanged(_inventory);
+            if (isAvailabilityChanged)
+                ChangeCraftableSlotUIAvailability(craftable,craftable.CraftableAvailabilityState==CraftableAvailabilityState.Available);
             
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Enums;
 using Interfaces;
 using UnityEngine;
@@ -41,26 +42,28 @@ namespace Models.Data
         {
             _resourceRequirements=sourceRequirements;
         }
-
+        
         public bool IsAvailabilityChanged(IInventoryService inventory)
         {
             var oldState = CraftableAvailabilityState;
-            var newState = CraftableAvailabilityState.Available;
-
-            foreach (var sourceRequirement in _resourceRequirements)
-            {
-                int availableAmount = inventory.GetSourceAmount(sourceRequirement.sourceType);
-                if (availableAmount < sourceRequirement.amount)
-                {
-                    newState = CraftableAvailabilityState.Unavailable;
-                    break;
-                }
-            }
+            var newState = IsAvailable(inventory) 
+                ? CraftableAvailabilityState.Available 
+                : CraftableAvailabilityState.Unavailable;
 
             CraftableAvailabilityState = newState;
             return oldState != newState;
         }
-     
+
+        public bool IsAvailable(IInventoryService inventory)
+        {
+            foreach (var req in _resourceRequirements)
+            {
+                if (inventory.GetSourceAmount(req.sourceType) < req.amount)
+                    return false;
+            }
+            return true;
+        }
+
 
         public void Initialize(GameObject prefab, Sprite icon, TEnum enumType,
             List<SourceRequirement> resourceRequirements,CategoryType categoryType, UniqueId uniqueId, CraftableAvailabilityState craftableAvailabilityState)

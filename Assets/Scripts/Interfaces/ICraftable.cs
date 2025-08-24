@@ -15,6 +15,6 @@ namespace Interfaces
         public List<SourceRequirement> GetRequirements();
         public void SetRequirements(List<SourceRequirement> sourceRequirements);
         public bool IsAvailabilityChanged(IInventoryService inventory);
-
+        public bool IsAvailable(IInventoryService inventory);
     }
 }
