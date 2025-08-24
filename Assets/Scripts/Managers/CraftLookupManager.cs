@@ -42,11 +42,12 @@ namespace Managers
         
         [SerializeField] private Transform categoriesSlotParent;
         [SerializeField] private Transform craftableSlotsContainer;
+        [SerializeField] private GameObject craftableObjectsPanel;
         
         private int _maxCraftableCount = 0;
         
         private IInventoryService _inventory;
-
+        private bool _showCraftablePanel;
         public void Initialize()
         {
             _inventory = ServiceLocator.Get<PlayerInventory>();
@@ -118,9 +119,6 @@ namespace Managers
                     _unlockedCraftableByCategory[categoryType] = new List<ICraftable>();
 
                     CreateNewCategory(categoryType);
-                    
-                    //UpdateAvailableObjects(unlockedCraftableObjects);
-                    // TODO : CREATE NEW CATEGORY SLOT
                 }
                 
                 var iCraftables = unlockedCraftableObjects[categoryType];
@@ -134,7 +132,6 @@ namespace Managers
                     //CreateNewCraftable(craftable);
                     _unlockedCraftableByCategory[categoryType].Add(craftable);
                     UpdateCraftableAvailability(craftable);
-                    // TODO : Check availability of craftable objects and set it .
                 }
             }
         }
@@ -161,33 +158,9 @@ namespace Managers
             slotUI.OnClicked += ShowCategoryCraftableObjects;
         }
 
-      
-        /*private void UpdateAvailableObjects(Dictionary<CategoryType, List<ICraftable>> availableCraftableObjects)
-        {
-            foreach (var kvp in availableCraftableObjects)
-            {
-                var category = kvp.Key;
-                var craftableList = kvp.Value;
-                _unlockedCraftableByCategory[category] = craftableList;
-                if (!_categorySlots.TryGetValue(category, out var slotUI))
-                {
-                    var go = Instantiate(categorySlotPrefab, categoriesSlotParent);
-                    slotUI = go.GetComponent<CategorySlotUI>();
-                    if (slotUI == null)
-                    {
-                        Debug.LogError("CategorySlotPrefab is missing CategorySlotUI component!");
-                        continue;
-                    }
-
-                    _categorySlots[category] = slotUI;
-                }
-                slotUI.Setup(category);
-                slotUI.OnClicked -= ShowCategoryCraftableObjects;
-                slotUI.OnClicked += ShowCategoryCraftableObjects;
-            }
-        }*/
         private void ShowCategoryCraftableObjects(CategorySlotUI clickedCategorySlot)
         {
+            _showCraftablePanel = !_showCraftablePanel;
             var category = clickedCategorySlot.Category;
             if (!_unlockedCraftableByCategory.TryGetValue(category, out var craftableList))
                 return;
@@ -213,12 +186,20 @@ namespace Managers
                     _craftableSlots[i].gameObject.SetActive(true);
                     _craftableSlots[i].Setup(craftableList[i]);
                     CraftableSlotByICraftable[craftableList[i]] = _craftableSlots[i];
+                    UpdateCraftableAvailability(craftableList[i]);
                 }
                 else
                 {
                     _craftableSlots[i].gameObject.SetActive(false);
                 }
             }
+
+            ChangeCraftablePanelVisibility();
+        }
+
+        private void ChangeCraftablePanelVisibility()
+        {
+            craftableObjectsPanel.SetActive(_showCraftablePanel);
         }
         private void UpdateAvailabilityBySource(SourceType sourceType)
         {
@@ -267,49 +248,8 @@ namespace Managers
                 Debug.Log(category);
                 CreateNewCategory(category);
             }
+            _showCraftablePanel = false;
+            ChangeCraftablePanelVisibility();
         }
-        
-        /*private void AddUnlockedEntries<TEnum, TData>(List<TData> entries)
-            where TEnum : Enum
-            where TData : CraftableAssetData<TEnum>,ICraftable
-        {
-
-            foreach (var entry in entries)
-            {
-                var uid = entry.GetUniqueId();
-                
-                if (uid != null && !_uniqueIdLookup.ContainsKey(uid))
-                    _uniqueIdLookup[uid] = entry;
-
-                if (!_categoryLookup.TryGetValue(entry.CategoryType, out var list))
-                {
-                    list = new List<ICraftable>();
-                    _categoryLookup[entry.CategoryType] = list;
-                }
-                list.Add(entry);
-            }
-
-            UpdateAvailableCategoryLookup();
-        }
-        public ICraftable GetByUniqueId(UniqueId id) =>
-            _uniqueIdLookup.GetValueOrDefault(id);
-
-        public List<ICraftable> GetByCategory(CategoryType category) =>
-            _categoryLookup.TryGetValue(category, out var list) ? list : new List<ICraftable>();
-
-        private void UpdateAvailableCategoryLookup()
-        {
-            _availableCategoryLookup.Clear();
-
-            foreach (var kvp in _categoryLookup)
-            {
-                var filteredList = kvp.Value
-                    .FindAll(item => item.CraftableAvailabilityState  == CraftableAvailabilityState.Available
-                                     || item.CraftableAvailabilityState == CraftableAvailabilityState.Unavailable);
-
-                if (filteredList.Count > 0)
-                    _availableCategoryLookup[kvp.Key] = filteredList;
-            }
-        }*/
     }
 }

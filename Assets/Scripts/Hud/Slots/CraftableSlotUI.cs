@@ -71,12 +71,10 @@ namespace Hud.Slots
         private void ChangeToAvailable()
         {
             icon.color = Color.white;
-            title.color = Color.white;
         }
         private void ChangeToUnavailable()
         {
             icon.color = Color.gray;
-            title.color = Color.gray; 
         }
     }
 }

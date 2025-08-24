@@ -12,6 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed7eaf3df8a4224d8585cddfdfec876, type: 3}
   m_Name: Pickaxe
   m_EditorClassIdentifier: Assembly-CSharp::Models.Data.ItemData
-  prefab: {fileID: 5581347468553274941, guid: f1f2d03e34966c247941d60d37d2459d, type: 3}
+  prefab: {fileID: 1775037287452715359, guid: f1f2d03e34966c247941d60d37d2459d, type: 3}
   icon: {fileID: 21300000, guid: 05d85fba04c45d848aaafcbda3a486a0, type: 3}
-  enumType: 1
+  enumType: 0
+  uniqueId:
+    uniqueName: 
+    id: 0
+  categoryType: 0
+  craftableAvailabilityState: 2
+  _resourceRequirements:
+  - sourceType: 0
+    amount: 4
+  - sourceType: 1
+    amount: 8
