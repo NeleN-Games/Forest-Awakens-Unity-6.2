@@ -9,13 +9,13 @@ using UnityEngine.UI;
 
 namespace Hud.Slots
 {
-    public class CraftableSlotUI : MonoBehaviour
+    public class CraftableSlotUI : MonoBehaviour,IPointerClickHandler
     {
         [SerializeField] private TextMeshProUGUI title;
         [SerializeField] private Image icon;
         private Action onClicked;
         private ICraftable _craftable;
-
+        private bool canCraft;
         public void Setup(ICraftable craftable)
         {
             _craftable = craftable;
@@ -37,6 +37,7 @@ namespace Hud.Slots
             {
                 SetIcon(sprite);
             }
+            onClicked -= _craftable.Craft;
             onClicked += _craftable.Craft;
         }
         private void SetIcon(Sprite sprite)
@@ -53,11 +54,13 @@ namespace Hud.Slots
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (!canCraft) return;
             onClicked?.Invoke();
         }
 
         public void ChangeAvailability(bool isAvailable)
         {
+            canCraft = isAvailable;
             if (isAvailable)
             {
                 ChangeToAvailable();
