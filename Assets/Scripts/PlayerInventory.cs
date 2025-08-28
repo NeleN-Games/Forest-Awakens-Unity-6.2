@@ -16,13 +16,13 @@ public class PlayerInventory : MonoBehaviour,IInitializable, IInventoryService
     public void Initialize()
     {
         OnInventoryChanged += ServiceLocator.Get<InventoryUI>().RefreshInventory;
-        OnSourceAmountChanged += ServiceLocator.Get<CraftLookupManager>().OnSourceAmountChanged;
+        OnSourceAmountChanged += ServiceLocator.Get<CraftingUIManager>().OnSourceAmountChanged;
     }
 
     public void OnDestroy()
     {
         OnInventoryChanged -= ServiceLocator.Get<InventoryUI>().RefreshInventory;
-        OnSourceAmountChanged -= ServiceLocator.Get<CraftLookupManager>().OnSourceAmountChanged;
+        OnSourceAmountChanged -= ServiceLocator.Get<CraftingUIManager>().OnSourceAmountChanged;
     }
     public int GetSourceAmount(SourceType sourceType)
     {

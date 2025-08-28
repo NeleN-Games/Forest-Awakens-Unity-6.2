@@ -11,7 +11,7 @@ namespace Managers
         [SerializeField] private SourceDatabase sourceDatabase;
         [SerializeField] private ItemDatabase itemDatabase;
         [SerializeField] private BuildingDatabase buildingDatabase;
-        [SerializeField] private CraftLookupManager craftLookupManager;
+        [SerializeField] private CraftingUIManager craftingUIManager;
         [SerializeField] private PlayerInventory playerInventory;
         [SerializeField] private InventoryUI inventoryUI;
         [SerializeField] private ItemCrafter itemCrafter;
@@ -23,7 +23,7 @@ namespace Managers
             ServiceLocator.Register(itemDatabase);
             ServiceLocator.Register(buildingDatabase);
             ServiceLocator.Register(inventoryUI);
-            ServiceLocator.Register(craftLookupManager);
+            ServiceLocator.Register(craftingUIManager);
             ServiceLocator.Register(playerInventory);
             ServiceLocator.Register(itemCrafter);
             ServiceLocator.Register(buildingCrafter);

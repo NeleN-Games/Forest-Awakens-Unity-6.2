@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Managers
 {
-    public class CraftLookupManager : MonoBehaviour,IInitializable
+    public class CraftingUIManager : MonoBehaviour,IInitializable
     {       
         
         /// <summary>
