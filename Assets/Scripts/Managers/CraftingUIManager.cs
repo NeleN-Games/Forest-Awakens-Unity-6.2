@@ -217,7 +217,7 @@ namespace Managers
         }
         private void UpdateAvailabilityBySource(SourceType sourceType)
         {
-            if (!_craftablesByRequiredSource.TryGetValue(sourceType, out var affectedCraftables))
+            if (!_craftablesByRequiredSource.TryGetValue(sourceType, out var affectedCraftables) || !_showCraftablePanel)
                 return;
 
             foreach (var craftable in affectedCraftables)
@@ -239,9 +239,9 @@ namespace Managers
 
         private void ChangeCraftableSlotUIAvailability(ICraftable craftable, bool isAvailable)
         {
-            if (CraftableSlotByICraftable.ContainsKey(craftable))
+            if (CraftableSlotByICraftable.TryGetValue(craftable, out var slot))
             {
-                CraftableSlotByICraftable[craftable].ChangeAvailability(isAvailable);
+                slot.ChangeAvailability(isAvailable);
             }
             else
             {
