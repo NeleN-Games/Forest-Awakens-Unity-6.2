@@ -1,11 +1,12 @@
 using Enums;
 using Helper;
+using Interfaces;
 using Models;
 using UnityEngine;
 
 namespace Managers
 {
-    public class CraftManager : MonoBehaviour
+    public class CraftManager : MonoBehaviour, IInitializable
     {
         public BuildingCrafter buildingCrafter;
         public ItemCrafter itemCrafter;
@@ -18,6 +19,14 @@ namespace Managers
         public void CraftItem(ItemType type)
         {
             itemCrafter.OnCraft?.Invoke(new CraftCommand<ItemType>(type));
+        }
+
+        public void Initialize()
+        {
+        }
+
+        public void OnDestroy()
+        {
         }
     }
 }

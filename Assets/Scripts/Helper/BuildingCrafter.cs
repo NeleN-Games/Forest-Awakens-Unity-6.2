@@ -8,30 +8,31 @@ namespace Helper
 {
     public class BuildingCrafter : Crafter<BuildingType, BuildingData, BuildingDatabase>
     {
-        public override void Initialize()
+        public void Awake()
         {
             Database = ServiceLocator.Get<BuildingDatabase>();
+            OnCraft -= Craft;
             OnCraft += Craft;
         }
 
-        public override void OnDestroy()
+        public void OnDestroy()
         {
             OnCraft -= Craft;
         }
 
-        protected override void HandleCraftSuccess(BuildingData data)
+        protected override void HandleCraft(BuildingData data)
         {
-            throw new System.NotImplementedException();
+            OnCraftSuccess(data);
         }
 
         protected override void OnCraftSuccess(BuildingData data)
         {
-            throw new System.NotImplementedException();
+            base.OnCraftSuccess(data);
         }
 
         protected override void OnCraftFailure(BuildingData data)
         {
-            throw new System.NotImplementedException();
+            base.OnCraftFailure(data);
         }
     }
 

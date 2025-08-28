@@ -13,7 +13,7 @@ namespace Hud.Slots
     {
         [SerializeField] private TextMeshProUGUI title;
         [SerializeField] private Image icon;
-        private Action onClicked;
+        public event Action<ICraftable> OnCraftRequested;
         private ICraftable _craftable;
         private bool canCraft;
         public void Setup(ICraftable craftable)
@@ -37,8 +37,6 @@ namespace Hud.Slots
             {
                 SetIcon(sprite);
             }
-            onClicked -= _craftable.Craft;
-            onClicked += _craftable.Craft;
         }
         private void SetIcon(Sprite sprite)
         {
@@ -55,7 +53,7 @@ namespace Hud.Slots
         public void OnPointerClick(PointerEventData eventData)
         {
             if (!canCraft) return;
-            onClicked?.Invoke();
+            OnCraftRequested?.Invoke(_craftable);
         }
 
         public void ChangeAvailability(bool isAvailable)

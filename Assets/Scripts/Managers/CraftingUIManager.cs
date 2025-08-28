@@ -154,11 +154,11 @@ namespace Managers
             
             _categorySlots[categoryType] = slotUI;
             slotUI.Setup(categoryType);
-            slotUI.OnClicked -= ShowCategoryCraftableObjects;
-            slotUI.OnClicked += ShowCategoryCraftableObjects;
+            slotUI.OnClicked -= ShowCraftableObjectsSelectedCategory;
+            slotUI.OnClicked += ShowCraftableObjectsSelectedCategory;
         }
 
-        private void ShowCategoryCraftableObjects(CategorySlotUI clickedCategorySlot)
+        private void ShowCraftableObjectsSelectedCategory(CategorySlotUI clickedCategorySlot)
         {
             _showCraftablePanel = !_showCraftablePanel;
             var category = clickedCategorySlot.Category;
@@ -185,6 +185,8 @@ namespace Managers
                 {
                     _craftableSlots[i].gameObject.SetActive(true);
                     _craftableSlots[i].Setup(craftableList[i]);
+                    _craftableSlots[i].OnCraftRequested -= HandleCraftRequest;
+                    _craftableSlots[i].OnCraftRequested += HandleCraftRequest;
                     CraftableSlotByICraftable[craftableList[i]] = _craftableSlots[i];
                     bool isAvailable = craftableList[i].IsAvailable(_inventory);
                     ChangeCraftableSlotUIAvailability(craftableList[i], isAvailable);
@@ -196,6 +198,17 @@ namespace Managers
             }
 
             ChangeCraftablePanelVisibility();
+        }
+        private void HandleCraftRequest(ICraftable craftable)
+        {
+            if (craftable is ItemData itemData)
+            {
+                ServiceLocator.Get<CraftManager>().CraftItem(itemData.GetEnum());
+            }
+            else if (craftable is BuildingData buildingData)
+            {
+                ServiceLocator.Get<CraftManager>().CraftBuilding(buildingData.GetEnum());
+            }
         }
 
         private void ChangeCraftablePanelVisibility()

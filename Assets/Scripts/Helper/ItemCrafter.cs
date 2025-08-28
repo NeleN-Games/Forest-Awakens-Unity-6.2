@@ -3,35 +3,37 @@ using Enums;
 using Managers;
 using Models.Data;
 using Services;
+using UnityEngine;
 
 namespace Helper
 {
     public class ItemCrafter : Crafter<ItemType, ItemData, ItemDatabase>
     {
-        public override void Initialize()
+        public void Awake()
         {
             Database = ServiceLocator.Get<ItemDatabase>();
+            OnCraft -= Craft;
             OnCraft += Craft;
         }
 
-        public override void OnDestroy()
+        public void OnDestroy()
         {
             OnCraft -= Craft;
         }
 
-        protected override void HandleCraftSuccess(ItemData data)
+        protected override void HandleCraft(ItemData data)
         {
-            throw new System.NotImplementedException();
+            OnCraftSuccess(data);
         }
 
         protected override void OnCraftSuccess(ItemData data)
         {
-            throw new System.NotImplementedException();
+            base.OnCraftSuccess(data);
         }
 
         protected override void OnCraftFailure(ItemData data)
         {
-            throw new System.NotImplementedException();
+            base.OnCraftFailure(data);
         }
     }
 }
