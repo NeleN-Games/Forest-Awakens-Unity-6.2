@@ -25,7 +25,7 @@ namespace Hud.Slots
             {
                 sprite = item.icon;
             }
-            else if (_craftable is CraftableAssetData<ItemType> building)
+            else if (_craftable is CraftableAssetData<BuildingType> building)
             {
                 sprite = building.icon;
             }

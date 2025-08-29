@@ -31,7 +31,6 @@ namespace Managers
             if (ServiceLocator.Get<PlayerInventory>().HasEnoughSources(data.GetRequirements()))
             {
                 HandleCraft(data);
-                //OnCraftSuccess(data);
             }
             else
             {
@@ -44,6 +43,11 @@ namespace Managers
 
         protected virtual void OnCraftSuccess(TData data)
         {
+            var sources = data.GetRequirements();
+            foreach (var source in sources)
+            {
+                ServiceLocator.Get<PlayerInventory>().RemoveSource(source.sourceType, source.amount);
+            }
             Debug.Log($"{data.name} has been crafted.");
         }
 

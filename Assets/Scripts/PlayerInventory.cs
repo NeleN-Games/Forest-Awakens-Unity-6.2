@@ -43,7 +43,7 @@ public class PlayerInventory : MonoBehaviour,IInitializable, IInventoryService
     } 
     
    
-    private void RemoveSource(SourceType type,int amount)
+    public void RemoveSource(SourceType type,int amount)
     {
         _inventory[type] -= amount;
         Debug.Log(type + $" removed from Inventory, You have : {_inventory[type] }");
@@ -60,12 +60,6 @@ public class PlayerInventory : MonoBehaviour,IInitializable, IInventoryService
             }
             return false;
         }
-
-        foreach (var source in sources)
-        {
-            RemoveSource(source.sourceType, source.amount);
-        }
-        OnInventoryChanged?.Invoke(_inventory);
         return true;
     }
     

@@ -25,6 +25,7 @@ public class InteractionManager : MonoBehaviour
 
     public void HideTooltip()
     {
-        toolTipText.gameObject.SetActive(false);
+        if (toolTipText != null)
+            toolTipText.gameObject.SetActive(false);
     }
 }

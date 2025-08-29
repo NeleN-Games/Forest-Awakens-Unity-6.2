@@ -17,3 +17,7 @@ MonoBehaviour:
     name: Tools
     icon: {fileID: 21300000, guid: e1da3dfe9937dc24e9f915f5c08e6424, type: 3}
     uniqueIds: []
+  - type: 1
+    name: House
+    icon: {fileID: -1308227481, guid: 13269667ee3eb0347807c8e05ada0646, type: 3}
+    uniqueIds: []

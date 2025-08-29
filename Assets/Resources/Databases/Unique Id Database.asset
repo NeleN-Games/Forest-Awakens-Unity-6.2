@@ -12,22 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cd05f0abf19ac345a1d78a781047b4c, type: 3}
   m_Name: Unique Id Database
   m_EditorClassIdentifier: 
-  uniqueIds:
-  - uniqueName: Asfgas
-    id: 26515
-  - uniqueName: Fdfdf
-    id: 17534
-  - uniqueName: Shovel
-    id: 19155
-  - uniqueName: Fgh
-    id: 28331
-  - uniqueName: Pickaxe
-    id: 18914
-  - uniqueName: B
-    id: 19863
-  - uniqueName: B
-    id: 17952
-  - uniqueName: Pickaxe
-    id: 19726
-  - uniqueName: Pickaxe
-    id: 17082
+  uniqueIds: []
