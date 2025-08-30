@@ -78,6 +78,7 @@ Transform:
   m_Children:
   - {fileID: 5824978964288921171}
   - {fileID: 669814557182851685}
+  - {fileID: 4673291853452907870}
   m_Father: {fileID: 168026626103515391}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &4444877768203323778
@@ -173,6 +174,68 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!1001 &980123142939040510
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4994208855229110238}
+    m_Modifications:
+    - target: {fileID: 5566667804868661152, guid: 25d6d3e8b448c9944b18adef9e1d4eda, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5566667804868661152, guid: 25d6d3e8b448c9944b18adef9e1d4eda, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5566667804868661152, guid: 25d6d3e8b448c9944b18adef9e1d4eda, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5566667804868661152, guid: 25d6d3e8b448c9944b18adef9e1d4eda, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5566667804868661152, guid: 25d6d3e8b448c9944b18adef9e1d4eda, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5566667804868661152, guid: 25d6d3e8b448c9944b18adef9e1d4eda, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5566667804868661152, guid: 25d6d3e8b448c9944b18adef9e1d4eda, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5566667804868661152, guid: 25d6d3e8b448c9944b18adef9e1d4eda, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5566667804868661152, guid: 25d6d3e8b448c9944b18adef9e1d4eda, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5566667804868661152, guid: 25d6d3e8b448c9944b18adef9e1d4eda, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8977155793288257214, guid: 25d6d3e8b448c9944b18adef9e1d4eda, type: 3}
+      propertyPath: m_Name
+      value: Apple
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 25d6d3e8b448c9944b18adef9e1d4eda, type: 3}
+--- !u!4 &4673291853452907870 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5566667804868661152, guid: 25d6d3e8b448c9944b18adef9e1d4eda, type: 3}
+  m_PrefabInstance: {fileID: 980123142939040510}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3238194189340576293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -255,6 +318,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone
       objectReference: {fileID: 0}
+    - target: {fileID: 4416480767756570406, guid: 1bf38151392df0b4fbb2339e9083342a, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416480767756570406, guid: 1bf38151392df0b4fbb2339e9083342a, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5037017287915924600, guid: 1bf38151392df0b4fbb2339e9083342a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5
@@ -305,7 +376,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5037017287915924600, guid: 1bf38151392df0b4fbb2339e9083342a, type: 3}
   m_PrefabInstance: {fileID: 5524997840033420829}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &317774570483194162
+--- !u!114 &174393447635567326
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

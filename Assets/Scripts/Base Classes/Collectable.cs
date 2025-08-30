@@ -21,7 +21,7 @@ namespace Base_Classes
       {
          collector.TryGetComponent(out PlayerInventory playerInventory);
          if (IsCollected) return;
-         playerInventory.AddItem(itemType,collectedAmount);
+         playerInventory.AddSource(itemType,collectedAmount);
          IsCollected = true;
          Destroy(gameObject);
       }

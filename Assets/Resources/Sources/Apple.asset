@@ -13,5 +13,13 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: Assembly-CSharp::Models.Data.SourceData
   prefab: {fileID: 8977155793288257214, guid: 25d6d3e8b448c9944b18adef9e1d4eda, type: 3}
-  icon: {fileID: 21300000, guid: b8b073f6f54029140af8d25d5558b339, type: 3}
+  icon: {fileID: 21300000, guid: 44e89845f1c10aa419951c109571485d, type: 3}
   enumType: 2
+  isConsumable: 1
+  modifiers:
+  - effects:
+    - statType: 0
+      amount: 100
+      hasEffectRate: 1
+      rateAmount: -10
+      duration: 3

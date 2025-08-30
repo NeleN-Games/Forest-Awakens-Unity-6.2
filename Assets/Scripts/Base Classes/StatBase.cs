@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Models;
-using Models.Scriptable_Objects;
 using UnityEngine;
 
 namespace Base_Classes

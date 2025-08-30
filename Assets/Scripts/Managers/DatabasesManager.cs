@@ -1,6 +1,6 @@
 using System.IO;
 using Databases;
-using Models.Scriptable_Objects;
+using Models;
 using UnityEngine;
 
 namespace Managers

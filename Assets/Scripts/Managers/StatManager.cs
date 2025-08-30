@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Base_Classes;
 using Enums;
-using Models.Scriptable_Objects;
+using Models;
 using Systems;
 using UnityEngine;
 
@@ -41,7 +41,7 @@ namespace Managers
           
         }
 
-        public void ApplyModifier(StatModifierSo modifier)
+        public void ApplyModifier(StatModifier modifier)
         {
             foreach (var effect in modifier.effects)
             {

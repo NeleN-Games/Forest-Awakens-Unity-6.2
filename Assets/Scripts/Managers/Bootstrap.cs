@@ -15,6 +15,7 @@ namespace Managers
         [SerializeField] private PlayerInventory playerInventory;
         [SerializeField] private InventoryUI inventoryUI;
         [SerializeField] private CraftManager craftManager;
+        [SerializeField] private EquipmentManager equipmentManager;
 
         private void Awake()
         {
@@ -25,6 +26,7 @@ namespace Managers
             ServiceLocator.Register(craftingUIManager);
             ServiceLocator.Register(playerInventory);
             ServiceLocator.Register(craftManager);
+            ServiceLocator.Register(equipmentManager);
             
             ServiceLocator.InitializeAll();
         }

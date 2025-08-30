@@ -15,3 +15,5 @@ MonoBehaviour:
   prefab: {fileID: 95966547413790855, guid: 1bf38151392df0b4fbb2339e9083342a, type: 3}
   icon: {fileID: 21300000, guid: b8b073f6f54029140af8d25d5558b339, type: 3}
   enumType: 1
+  isConsumable: 0
+  modifiers: []
