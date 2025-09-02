@@ -3992,6 +3992,7 @@ GameObject:
   - component: {fileID: 962927946}
   - component: {fileID: 962927948}
   - component: {fileID: 962927947}
+  - component: {fileID: 962927949}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -4076,6 +4077,28 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
+--- !u!114 &962927949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962927944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b929cdc080d38f4489d4a6442018d26d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Managers.CameraManager
+  virtualCam: {fileID: 962927948}
+  rotateTransitionTime: 1
+  zoomTransitionTime: 0.3
+  zoomSpeed: 10
+  minSize: 5
+  maxSize: 18
+  minHeight: 7
+  maxHeight: 20
+  panSpeed: 18
+  panBorderThickness: 10
 --- !u!1 &980399896
 GameObject:
   m_ObjectHideFlags: 0
@@ -6689,6 +6712,7 @@ MonoBehaviour:
   playerInputAction: {fileID: -944628639613478452, guid: 54de14856fb0a8b489f59a2dd7a61ee8, type: 3}
   baseSpeed: 7
   rigidBody: {fileID: 1738934275}
+  cameraTransform: {fileID: 962927946}
   accelerationTime: 2
   decelerationTime: 0.4
   maxSpeedMultiplier: 1.25
@@ -7568,6 +7592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toolTipText: {fileID: 980399898}
+  cameraTransform: {fileID: 519420032}
 --- !u!4 &1886048309 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5037017287915924600, guid: 1bf38151392df0b4fbb2339e9083342a, type: 3}
