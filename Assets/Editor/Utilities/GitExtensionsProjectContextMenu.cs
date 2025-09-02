@@ -18,7 +18,7 @@ public static class GitExtensionsProjectContextMenu
         if (File.Exists(path))
             path = Path.GetDirectoryName(path);
 
-        string gitExtPath = @"C:\Program Files (x86)\GitExtensions\GitExtensions.exe";
+        string gitExtPath = @"C:\Program Files\GitExtensions\GitExtensions.exe";
 
         if (!File.Exists(gitExtPath))
         {
