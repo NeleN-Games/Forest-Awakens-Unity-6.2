@@ -5581,8 +5581,8 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  placeableColor: {r: 0, g: 0.8396226, b: 0.13310216, a: 1}
-  notPlaceableColor: {r: 0.9528302, g: 0.39101997, b: 0.39101997, a: 1}
+  placeableColor: {r: 0, g: 0.8396226, b: 0.13310216, a: 0.8509804}
+  notPlaceableColor: {r: 0.9528302, g: 0.39101997, b: 0.39101997, a: 0.8509804}
 --- !u!1 &1397080879
 GameObject:
   m_ObjectHideFlags: 0

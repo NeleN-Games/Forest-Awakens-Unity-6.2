@@ -7,6 +7,9 @@ namespace Helper
 {
     public class BuildingPlacer : MonoBehaviour
     {
+        private static readonly int Surface = Shader.PropertyToID("_Surface");
+        private static readonly int AlphaClip = Shader.PropertyToID("_AlphaClip");
+        private static readonly int DstBlend = Shader.PropertyToID("_DstBlend");
         [SerializeField] private Camera camera;
         [SerializeField] private BuildingCrafter craftManager;
         public GameObject previewPrefab;
@@ -17,13 +20,16 @@ namespace Helper
         private readonly Collider[] _overlapResults = new Collider[3];
         [SerializeField] private Color placeableColor;
         [SerializeField] private Color notPlaceableColor;
-
         public void StartPlacing(BuildingData data)
         {
             currentBuildingData = data;
             previewPrefab = Instantiate(data.prefab);
             _cashedCollider = previewPrefab.GetComponentInChildren<BoxCollider>();
             _cashedCollider.isTrigger = true;
+            var material = previewPrefab.GetComponentInChildren<MeshRenderer>().material;
+            material.SetFloat(Surface, 1f);      
+            material.SetFloat(AlphaClip, 0f);    
+            material.SetInt(DstBlend, (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
             _isPlacing = true;
         }
 
