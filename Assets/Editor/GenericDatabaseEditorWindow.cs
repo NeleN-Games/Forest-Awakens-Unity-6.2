@@ -157,6 +157,18 @@ namespace Editor
         {
             get => EditorPrefs.GetInt(SourceAmountKey, 0);
             set => EditorPrefs.SetInt(SourceAmountKey, value);
+        }  
+        private string BuildingSizeXKey => $"BuildingSizeX{typeof(TEnum).Name}";
+        private int BuildingSizeX
+        {
+            get => EditorPrefs.GetInt(BuildingSizeXKey, 0);
+            set => EditorPrefs.SetInt(BuildingSizeXKey, value);
+        }
+        private string BuildingSizeZKey => $"BuildingSizeZ{typeof(TEnum).Name}";
+        private int BuildingSizeZ
+        {
+            get => EditorPrefs.GetInt(BuildingSizeZKey, 0);
+            set => EditorPrefs.SetInt(BuildingSizeZKey, value);
         }
         
         private List<SourceRequirement> _resourceRequirements = new();
@@ -291,6 +303,19 @@ namespace Editor
                     ScriptGenerated = false;
                 }
             }
+            if (typeof(TEnum) == typeof(BuildingType))
+            {
+                EditorGUILayout.Space(5);
+                EditorGUI.BeginChangeCheck();
+                BuildingSizeX = EditorGUILayout.IntField("Building Size X", BuildingSizeX);
+                BuildingSizeZ = EditorGUILayout.IntField("Building Size Z", BuildingSizeZ);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    EnumReady = false;
+                    ScriptGenerated = false;
+                }
+            }
+
            
         }
         protected abstract string GetNameFieldLabel();
@@ -487,6 +512,10 @@ namespace Editor
             var uniqueId = UniqueIdManager.CreateNewUniqueId(AssetName,craftableType);
             craftableData.SetRequirements(_resourceRequirements);
             craftableData.Initialize(prefab,DisplaySprite,itemType,_resourceRequirements,SelectedCategory,uniqueId,SelectedAvailability);
+            if (craftableData is BuildingData buildingData)
+            {
+                buildingData.buildingSize = new Vector2(BuildingSizeX, BuildingSizeZ);
+            }
             craftableData.prefab = prefab;
             DatabasesManager.LoadDatabases();
             DatabasesManager.categoryDatabase.AddCraftableObjectToCategory(SelectedCategory,uniqueId);

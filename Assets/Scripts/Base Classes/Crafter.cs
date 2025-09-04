@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Databases;
 using Interfaces;
 using Models;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace Managers
 {
-    public abstract class Crafter<TEnum, TData, TDatabase> : MonoBehaviour,IInitializable
+    public abstract class Crafter<TEnum, TData, TDatabase> : MonoBehaviour
         where TEnum : Enum
         where TData : CraftableAssetData<TEnum>
         where TDatabase : GenericDatabase<TEnum, TData>
@@ -17,10 +18,6 @@ namespace Managers
 
         protected TDatabase Database;
         
-        public abstract void Initialize();
-
-        public abstract void OnDestroy();
-       
 
         protected void Craft(CraftCommand<TEnum> command)
         {
@@ -33,8 +30,7 @@ namespace Managers
 
             if (ServiceLocator.Get<PlayerInventory>().HasEnoughSources(data.GetRequirements()))
             {
-                HandleCraftSuccess(data);
-                OnCraftSuccess(data);
+                HandleCraft(data);
             }
             else
             {
@@ -42,9 +38,24 @@ namespace Managers
             }
         }
 
-        protected abstract void HandleCraftSuccess(TData data);
-        protected abstract void OnCraftSuccess(TData data);
-        protected abstract void OnCraftFailure(TData data);
+
+        protected abstract void HandleCraft(TData data);
+
+        protected virtual void OnCraftSuccess(TData data)
+        {
+            var sources = data.GetRequirements();
+            foreach (var source in sources)
+            {
+                ServiceLocator.Get<PlayerInventory>().RemoveSource(source.sourceType, source.amount);
+            }
+            Debug.Log($"{data.name} has been crafted.");
+        }
+
+        protected virtual void OnCraftFailure(TData data)
+        {
+            Debug.Log($"Failed to craft {data.name}.");
+
+        }
       
     }
 }

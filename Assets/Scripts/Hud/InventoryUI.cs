@@ -16,9 +16,8 @@ namespace Hud
         public GameObject slotPrefab;
         public Transform slotParent;
         [SerializeField] private TextMeshProUGUI tooltipText;
-        [SerializeField] private SourceDatabase sourceDatabase;
-
-        private readonly Dictionary<SourceType, InventorySlotUI> _slots = new();
+        
+        private readonly Dictionary<InventorySlotInfo, InventorySlotUI> _slots = new();
 
         private bool _isOpen = false;
         private  Vector2 _cashedPanelPosition; 
@@ -26,7 +25,6 @@ namespace Hud
         public float xOffset=-10; 
         public void Initialize()
         {
-            sourceDatabase=ServiceLocator.Get<SourceDatabase>();
             RefreshInventory(ServiceLocator.Get<PlayerInventory>().GetInventory());
             panel.anchoredPosition = new Vector2(+panel.rect.width, 0);
             _cashedPanelPosition = new Vector2(+panel.rect.width, 0);
@@ -50,8 +48,48 @@ namespace Hud
             else
                 panel.DOAnchorPos(_cashedPanelPosition, 0.5f).SetEase(Ease.InExpo);
         }
+        public void RefreshInventory(Dictionary<InventorySlotInfo, InventorySlotUI> inventoryData)
+        {
+            foreach (var entry in inventoryData)
+            {
+                var slotInfo = entry.Key;
+                var equippable = slotInfo.Equippable;
+                var count = slotInfo.Count;
+                if (_slots.ContainsKey(slotInfo))
+                {
+                    _slots[slotInfo].UpdateCount(count);
+                }
+                else
+                {
+                    GameObject slotObj = Instantiate(slotPrefab, slotParent);
+                    
+                    var slotUI = slotObj.GetComponent<InventorySlotUI>();
+                    slotUI.Setup(equippable, count);
+                    _slots[slotInfo] = slotUI;
+                    
+                    /*slot = slotObj.GetComponent<InventorySlotUI>();
+                    slot.Setup(item, count);
+                    _slots[item] = slot;*/
+                }
+            }
 
-        public void RefreshInventory(Dictionary<SourceType, int> inventoryData)
+            var keysToRemove = new List<InventorySlotInfo>();
+            foreach (var existing in _slots.Keys)
+            {
+                if (!inventoryData.ContainsKey(existing))
+                {
+                    Destroy(_slots[existing].gameObject);
+                    keysToRemove.Add(existing);
+                }
+               
+            }
+
+            foreach (var key in keysToRemove)
+                _slots.Remove(key);
+        }
+
+        
+        /*public void RefreshInventory(Dictionary<SourceType, int> inventoryData)
         {
             
             foreach (var item in inventoryData)
@@ -66,7 +104,7 @@ namespace Hud
                     // if slot doesn't exist, create a new one
                     GameObject slotObj = Instantiate(slotPrefab, slotParent);
                     slot = slotObj.GetComponent<InventorySlotUI>();
-                    slot.Setup(item.Key, item.Value);
+                    slot.Setup(item, item.Value);
                     _slots[item.Key] = slot;
                 }
             }
@@ -86,17 +124,18 @@ namespace Hud
                 _slots.Remove(key);
             
         }
+        */
 
         public void ShowTooltip(string text, Vector2 position)
         {
             tooltipText.text = text;
-            tooltipText.transform.position = position;
-            tooltipText.gameObject.SetActive(true);
+            tooltipText.transform.parent.position = position;
+            tooltipText.transform.parent.gameObject.SetActive(true);
         }
 
         public void HideTooltip()
         {
-            tooltipText.gameObject.SetActive(false);
+            tooltipText.transform.parent.gameObject.SetActive(false);
         }
 
        

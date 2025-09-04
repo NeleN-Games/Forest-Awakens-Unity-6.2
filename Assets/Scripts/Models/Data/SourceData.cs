@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Enums;
 using Interfaces;
 using UnityEditor;
@@ -8,10 +9,14 @@ namespace Models.Data
 {
     [CreateAssetMenu(menuName = "Data/Source")]
     [Serializable]
-    public class SourceData : CommonAssetData<SourceType>
+    public class SourceData : CommonAssetData<SourceType>,IEquippable
     {
-        public override SourceType GetEnum() => enumType;
+        public bool isConsumable; 
+        public List<StatModifier> modifiers;
 
+        public override SourceType GetEnum() => enumType;
+        public Sprite GetIcon() => icon;
+        public string GetName() => name;
         private string relatedScriptTypeName;
         public override CommonAssetData<SourceType> Clone()
         {
@@ -32,5 +37,7 @@ namespace Models.Data
             if (string.IsNullOrEmpty(relatedScriptTypeName)) return null;
             return Type.GetType(relatedScriptTypeName);
         }
+
+        
     }
 }

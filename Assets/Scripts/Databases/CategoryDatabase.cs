@@ -19,7 +19,6 @@ namespace Databases
                 Debug.Log(category.type);
                 if (category.type != categoryType)
                 {
-                    Debug.LogError($"Did not find valid category to add category.type : {category.type},   categoryType : {categoryType}");
                     continue;
                 }
               

@@ -6,7 +6,7 @@ using Editor.CategoryTool;
 using Editor.Utilities;
 using Enums;
 using Models.Data;
-using Models.Scriptable_Objects;
+using Models;
 using UnityEditor;
 using UnityEngine;
 using Utilities;

@@ -16,7 +16,9 @@ public class MovementInputHandler : MonoBehaviour
     [SerializeField]
     private float baseSpeed;
     [SerializeField] 
-    private Rigidbody rigidBody;
+    private Rigidbody rigidBody; 
+    [SerializeField] 
+    private Transform cameraTransform;
     
     [SerializeField]
     private float accelerationTime = 3f;
@@ -90,14 +92,27 @@ public class MovementInputHandler : MonoBehaviour
                 _lastNonZeroDirection :
                 Vector2.Lerp(_cashedMoveDirection, Vector2.zero, Time.fixedDeltaTime * 20f);
         }
-
+        
+        /* Old version: fixed 45-degree movement relative to world axes
         Vector3 rawMove = new Vector3(_cashedMoveDirection.x, 0f, _cashedMoveDirection.y);
-        Quaternion rotation = Quaternion.Euler(0f, 45f, 0f); 
+        Quaternion rotation = Quaternion.Euler(0f, 45f, 0f);
         Vector3 moveDirection = rotation * rawMove;
-
         rigidBody.linearVelocity = moveDirection * (baseSpeed * _currentSpeedMultiplier);
-    
+        */
+        
+        // New version: movement relative to camera forward (pressing 'up' always moves player forward relative to camera)
 
+        Vector3 forward = cameraTransform.forward;
+        Vector3 right =cameraTransform.right;
+        forward.y = 0;
+        right.y = 0;
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 moveDir = _cashedMoveDirection.y * forward + _cashedMoveDirection.x * right;
+
+        rigidBody.linearVelocity = moveDir * (baseSpeed * _currentSpeedMultiplier);
+        
         // Old System for moving along x, y axis
         
         /*if (_moveInput != Vector2.zero)

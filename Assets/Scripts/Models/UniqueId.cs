@@ -9,9 +9,9 @@ namespace Models
     [Serializable]
     public class UniqueId : IEquatable<UniqueId>
     {
-        [SerializeField, ReadOnly]
+        [ReadOnly]
         private string uniqueName;
-        [SerializeField, ReadOnly]
+        [ ReadOnly]
         private int id;
 
         public string UniqueName

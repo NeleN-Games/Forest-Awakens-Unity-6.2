@@ -1,37 +1,50 @@
+using System;
 using Databases;
 using Enums;
 using Managers;
 using Models.Data;
 using Services;
+using UnityEngine;
 
 namespace Helper
 {
     public class BuildingCrafter : Crafter<BuildingType, BuildingData, BuildingDatabase>
     {
-        public override void Initialize()
+
+        [SerializeField] private BuildingPlacer buildingPlacer;
+        public Action<BuildingData,Vector3> OnPlacingBuilding;
+        public void Awake()
         {
             Database = ServiceLocator.Get<BuildingDatabase>();
+            OnCraft -= Craft;
             OnCraft += Craft;
+            OnPlacingBuilding -= PlaceBuilding;
+            OnPlacingBuilding += PlaceBuilding;
         }
 
-        public override void OnDestroy()
+        public void OnDestroy()
         {
             OnCraft -= Craft;
         }
 
-        protected override void HandleCraftSuccess(BuildingData data)
+        protected override void HandleCraft(BuildingData data)
         {
-            throw new System.NotImplementedException();
+            buildingPlacer.StartPlacing(data);
         }
 
+        private void PlaceBuilding(BuildingData data, Vector3 position)
+        {
+            Instantiate(data.prefab, position, Quaternion.identity);
+            OnCraftSuccess(data);
+        }
         protected override void OnCraftSuccess(BuildingData data)
         {
-            throw new System.NotImplementedException();
+            base.OnCraftSuccess(data);
         }
 
         protected override void OnCraftFailure(BuildingData data)
         {
-            throw new System.NotImplementedException();
+            base.OnCraftFailure(data);
         }
     }
 

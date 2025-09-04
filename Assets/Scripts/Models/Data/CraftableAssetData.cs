@@ -10,7 +10,7 @@ namespace Models.Data
     public abstract class CraftableAssetData<TEnum> : CommonAssetData<TEnum>,ICraftable
         where TEnum : System.Enum
     {
-        [SerializeField,ReadOnly]
+        [ReadOnly]
         private UniqueId uniqueId;
 
         [SerializeField]
@@ -65,7 +65,7 @@ namespace Models.Data
         }
 
 
-        public void Initialize(GameObject prefab, Sprite icon, TEnum enumType,
+        public virtual void Initialize(GameObject prefab, Sprite icon, TEnum enumType,
             List<SourceRequirement> resourceRequirements,CategoryType categoryType, UniqueId uniqueId, CraftableAvailabilityState craftableAvailabilityState)
         {
             base.Initialize(prefab, icon, enumType);

@@ -1,4 +1,4 @@
-using Models.Scriptable_Objects;
+using Models;
 using UnityEditor;
 using UnityEngine;
 

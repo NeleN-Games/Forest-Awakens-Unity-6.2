@@ -1,5 +1,5 @@
 using Base_Classes;
-using Models.Scriptable_Objects;
+using Models;
 using Systems;
 using UnityEngine;
 

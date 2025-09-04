@@ -2,7 +2,7 @@ using System;
 using Enums;
 using UnityEngine.Serialization;
 
-namespace Models.Scriptable_Objects
+namespace Models
 {
     [Serializable]
     public class StatEffect
