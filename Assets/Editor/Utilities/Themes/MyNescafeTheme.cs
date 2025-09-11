@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Editor.Utilities.Themes
 {
-    public class MySunsetTheme : IEditorTheme
+    public class MyNescafeTheme : IEditorTheme
     {
         // Palette
         public static readonly Color BgColorStatic         = new Color(0.15f, 0.09f, 0.05f); // Deep coffee brown background

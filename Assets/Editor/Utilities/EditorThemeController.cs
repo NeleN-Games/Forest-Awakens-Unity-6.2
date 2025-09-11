@@ -13,11 +13,11 @@ namespace Editor.Utilities
             new MyDefaultTheme(),
             new MyVioletTheme(),
             new MyCyberTheme(),
-            new MySunsetTheme(),
+            new MyNescafeTheme(),
             new MyForestTheme()
         };
 
-        public static string[] ThemeNames = new string[] { "Default", "Violet","Cyber","Sunset" ,"Forest" };
+        public static string[] ThemeNames = new string[] { "Default", "Violet","Cyber","Nescafe" ,"Forest" };
 
         // Current selected theme index (private, managed internally)
         private static int selectedIndex = 0;
