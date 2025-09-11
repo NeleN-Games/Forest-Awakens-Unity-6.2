@@ -1,15 +1,16 @@
 ﻿using System;
 using Interfaces.Enemy;
+using Models.Data.Enemy.Behaviours.BaseClass;
 using UnityEngine;
 
-namespace Models.Data.Enemy
+namespace Models.Data.Enemy.Behaviours
 {
     [CreateAssetMenu(menuName = "Enemy/Behaviors/Attacker/Range")]
     [Serializable]
 
-    public class RangeAttackerBehavior: ScriptableObject, IAttackerEnemyBehaviour
+    public class RangeAttackerBehavior:EnemyActBehaviour
     {
-        public void Execute()
+        public override void Execute()
         {
            
         }

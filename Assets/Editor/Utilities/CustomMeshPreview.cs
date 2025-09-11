@@ -51,7 +51,7 @@ namespace Editor.Utilities
             }
         }
 
-        private void ResetView()
+        public void ResetView()
         {
             _previewDrag = Vector2.zero;
             _previewPan = Vector2.zero;
@@ -141,15 +141,7 @@ namespace Editor.Utilities
             }
 
             GUI.DrawTexture(previewRect, _previewTexture, ScaleMode.ScaleToFit, false);
-            GUILayout.BeginHorizontal();
-
-            GUILayout.FlexibleSpace();
-            if (GUILayout.Button("🔄 Reset View", GUILayout.Width(110)))
-            {
-                ResetView();
-            }
-            GUILayout.FlexibleSpace();
-            GUILayout.EndHorizontal();
+          
 
         }
         

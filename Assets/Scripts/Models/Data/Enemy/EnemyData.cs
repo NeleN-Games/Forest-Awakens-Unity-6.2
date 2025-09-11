@@ -2,6 +2,7 @@ using System;
 using Enums;
 using Interfaces;
 using Interfaces.Enemy;
+using Models.Data.Enemy.Behaviours.BaseClass;
 using Models.Structs;
 using UnityEngine;
 
@@ -14,9 +15,9 @@ namespace Models.Data
         public float health;
         public EnemyType enemyType;
         
-        [SerializeField] public IEnemyBehavior.IIdleBehaviour IdleBehavior;
-        [SerializeField] public IEnemyBehavior.IAwarenessBehaviour AwareBehavior;
-        [SerializeField] public IEnemyBehavior.IActBehaviour ActBehavior;
+        [SerializeField] public EnemyIdleBehaviour IdleBehavior;
+        [SerializeField] public EnemyAwareBehaviour AwareBehavior;
+        [SerializeField] public EnemyActBehaviour ActBehavior;
         
 
         public void Idle()
@@ -31,10 +32,10 @@ namespace Models.Data
         {
             ActBehavior?.Execute();
         }
-        public virtual void Initialize(GameObject prefab, Sprite icon, float health,EnemyType enemyType
-        ,IEnemyBehavior.IIdleBehaviour idleBehavior,IEnemyBehavior.IAwarenessBehaviour awareBehavior
-        ,IEnemyBehavior.IActBehaviour actBehavior
-        )
+        public void Initialize(GameObject prefab, Sprite icon, float health, EnemyType enemyType,
+            EnemyIdleBehaviour idleBehavior,
+            EnemyAwareBehaviour awareBehavior,
+            EnemyActBehaviour actBehavior)
         {
             enumType =enemyType.Category;
             base.Initialize(prefab, icon, enumType);

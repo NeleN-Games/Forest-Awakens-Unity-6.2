@@ -1,13 +1,14 @@
 ﻿using System;
 using DG.Tweening;
 using Interfaces.Enemy;
+using Models.Data.Enemy.Behaviours.BaseClass;
 using UnityEngine;
 
-namespace Models.Data.Enemy
+namespace Models.Data.Enemy.Behaviours
 {
     [CreateAssetMenu(menuName = "Enemy/Behaviors/Idle/Line Walking")]
     [Serializable]
-    public class LineWalkingBehaviour: ScriptableObject, IEnemyBehavior.IIdleBehaviour
+    public class LineWalkingBehaviour: EnemyIdleBehaviour
     { 
         public Transform pointA;
         public Transform pointB;
@@ -15,7 +16,7 @@ namespace Models.Data.Enemy
         public bool isMoveToA;
         public bool isMoving;
         public float speed;
-        public void Execute()
+        public override void Execute()
         {
             if (isMoving) return;
             float distance = 0;

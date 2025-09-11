@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using Editor.Utilities;
 using Enums;
 using Interfaces.Enemy;
 using Models.Data;
 using Models.Data.Enemy;
+using Models.Data.Enemy.Behaviours.BaseClass;
 using Models.Structs;
 using ScriptGenerators;
 using UnityEditor;
@@ -30,9 +32,10 @@ namespace Editor
         private Material selectedMaterial;
         private Sprite icon;
 
-        private IEnemyBehavior.IIdleBehaviour idleBehavior;
-        private IEnemyBehavior.IAwarenessBehaviour awareBehavior;
-        private IEnemyBehavior.IActBehaviour actBehavior;
+        private EnemyIdleBehaviour idleBehavior;
+        private EnemyAwareBehaviour awareBehavior;
+        private EnemyActBehaviour actBehavior;
+
 
         private bool canCreate = false; // Whether Create button is active after Prepare
 
@@ -40,12 +43,12 @@ namespace Editor
 
         private PreviewRenderUtility previewUtility;
         private bool showPreview = true;
-
-        private System.Collections.Generic.List<IEnemyBehavior.IIdleBehaviour> idleBehaviors;
+        
+        private List<EnemyIdleBehaviour> idleBehaviors;
         private string[] idleBehaviorNames;
-        private System.Collections.Generic.List<IEnemyBehavior.IAwarenessBehaviour> awareBehaviors;
+        private List<EnemyAwareBehaviour> awareBehaviors;
         private string[] awareBehaviorNames;
-        private System.Collections.Generic.List<IEnemyBehavior.IActBehaviour> actBehaviors;
+        private List<EnemyActBehaviour> actBehaviors;
         private string[] actBehaviorNames;
 
 
@@ -204,8 +207,20 @@ namespace Editor
                 if (selectedMesh != null && selectedMaterial != null)
                 {
                     _customMeshPreview.SetMesh(selectedMesh, selectedMaterial);
-                    Rect previewRect = GUILayoutUtility.GetRect(501, 250, GUILayout.ExpandWidth(true));
+                    Rect previewRect = GUILayoutUtility.GetRect(500, 250, GUILayout.ExpandWidth(true));
                     _customMeshPreview.DrawPreview(previewRect);
+                    
+                    GUILayout.BeginHorizontal();
+                    GUILayout.FlexibleSpace();
+                    if (GUILayout.Button("🔄 Reset View", GUILayout.Width(110)))
+                    {
+                        _customMeshPreview.ResetView();
+                        previewRect = GUILayoutUtility.GetRect(502, 250, GUILayout.ExpandWidth(true));
+                        _customMeshPreview.DrawPreview(previewRect);
+                    }
+                    GUILayout.FlexibleSpace();
+                    GUILayout.EndHorizontal();
+
                 }
 
                 EditorGUILayout.EndVertical();
@@ -254,8 +269,6 @@ namespace Editor
             EditorUtility.DisplayDialog("Success", message, "Nice");
             canCreate = true;
         }
-
-
         private void CacheAllBehaviors()
         {
             CacheBehaviors(out idleBehaviors, out idleBehaviorNames);
@@ -263,33 +276,32 @@ namespace Editor
             CacheBehaviors(out actBehaviors, out actBehaviorNames);
         }
 
-        private void CacheBehaviors<T>(out System.Collections.Generic.List<T> list, out string[] names) where T : class
+        private void CacheBehaviors<T>(out List<T> list, out string[] names) where T : ScriptableObject
         {
-            list = new System.Collections.Generic.List<T>();
-            var nameList = new System.Collections.Generic.List<string>();
-            string[] guids = AssetDatabase.FindAssets("t:ScriptableObject");
+            list = new List<T>();
+            var nameList = new List<string>();
+            string[] guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
             foreach (var guid in guids)
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);
-                var obj = AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
-                if (obj is T b)
+                T obj = AssetDatabase.LoadAssetAtPath<T>(path);
+                if (obj != null)
                 {
-                    list.Add(b);
+                    list.Add(obj);
                     nameList.Add(obj.name);
                 }
             }
-
             names = nameList.ToArray();
         }
 
-        private void DrawBehaviorField<T>(ref T behavior, System.Collections.Generic.List<T> list,
-            string[] names) where T : class
+
+        private void DrawBehaviorField<T>(ref T behavior, List<T> list, string[] names) where T : ScriptableObject
         {
             int selectedIndex = behavior != null ? list.IndexOf(behavior) : -1;
-            int newIndex = EditorGUILayout.Popup(selectedIndex, names,currentTheme.DropdownStyle());
+            int newIndex = EditorGUILayout.Popup(selectedIndex, names, currentTheme.DropdownStyle());
             if (newIndex >= 0) behavior = list[newIndex];
         }
-
+        
 
         private void CreateEnemyDataAsset()
         {
@@ -331,7 +343,6 @@ namespace Editor
 
             // 3️⃣ Create Prefab from temporary GameObject
             GameObject prefab = PrefabUtility.SaveAsPrefabAsset(go, prefabPath);
-            DestroyImmediate(go); // GameObject موقت حذف شود
 
             // 4️⃣ Create EnemyData and assign Prefab
             EnemyData newData = null;
@@ -356,10 +367,16 @@ namespace Editor
 
             newData.Initialize(prefab, icon, health, new EnemyType(category, subCategory),
                 idleBehavior, awareBehavior, actBehavior);
-
-            // 5️⃣ Assign Data to Controller inside Prefab
+            
+            // 5️⃣Apply EnemyData to the prefab instance
             if (controller != null)
-                controller.Data = newData;
+            {
+                // Load the controller from the prefab
+                EnemyController prefabController = prefab.GetComponent<EnemyController>();
+                if (prefabController != null)
+                    prefabController.Data = newData;
+            }
+            DestroyImmediate(go);
 
             // 6️⃣ Save Asset
             AssetDatabase.CreateAsset(newData, dataPath);
@@ -371,9 +388,9 @@ namespace Editor
 
             var message = "EnemyData and Prefab created!\n \n " +
                           $"Data: {dataPath}\n \nPrefab:  {prefabPath}\n \n " +
-                          $"Behaviors: Idle = {(idleBehavior as ScriptableObject)?.name}\n \n " +
-                          $"Aware = {(awareBehavior as ScriptableObject)?.name}\n \n " +
-                          $"Act = {(actBehavior as ScriptableObject)?.name}";
+                          $"Behaviors: Idle = {(idleBehavior)?.name}\n \n " +
+                          $"Aware = {(awareBehavior)?.name}\n \n " +
+                          $"Act = {(actBehavior)?.name}";
             EditorUtility.DisplayDialog("Success", message, "Nice");
         }
 
@@ -405,9 +422,10 @@ namespace Editor
             SaveAssetGuid(MeshKey, selectedMesh);
             SaveAssetGuid(MaterialKey, selectedMaterial);
             SaveAssetGuid(IconKey, icon);
-            SaveAssetGuid(IdleKey, idleBehavior as ScriptableObject);
-            SaveAssetGuid(AwareKey, awareBehavior as ScriptableObject);
-            SaveAssetGuid(ActKey, actBehavior as ScriptableObject);
+            SaveAssetGuid(IdleKey, idleBehavior);
+            SaveAssetGuid(AwareKey, awareBehavior);
+            SaveAssetGuid(ActKey, actBehavior);
+
             EditorThemeController.SaveTheme(EditorThemeKey);
 
         }
@@ -422,11 +440,11 @@ namespace Editor
             selectedMesh = LoadAssetGuid<Mesh>(MeshKey);
             selectedMaterial = LoadAssetGuid<Material>(MaterialKey);
             icon = LoadAssetGuid<Sprite>(IconKey);
-
-            idleBehavior = LoadAssetGuid<ScriptableObject>(IdleKey) as IEnemyBehavior.IIdleBehaviour;
-            awareBehavior = LoadAssetGuid<ScriptableObject>(AwareKey) as IEnemyBehavior.IAwarenessBehaviour;
-            actBehavior = LoadAssetGuid<ScriptableObject>(ActKey) as IEnemyBehavior.IActBehaviour;
             
+            idleBehavior = LoadAssetGuid<EnemyIdleBehaviour>(IdleKey);
+            awareBehavior = LoadAssetGuid<EnemyAwareBehaviour>(AwareKey);
+            actBehavior = LoadAssetGuid<EnemyActBehaviour>(ActKey);
+
             EditorThemeController.LoadTheme(EditorThemeKey);
             currentTheme=EditorThemeController.CurrentTheme;
         }
